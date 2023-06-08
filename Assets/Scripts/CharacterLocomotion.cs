@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class CharacterLocomotion : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Animator animator;
+    private Vector2 userInput;
+
+    private void Awake()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        userInput.x = Input.GetAxis("Horizontal");
+        userInput.y = Input.GetAxis("Vertical");
+
+        animator.SetFloat("inputX", userInput.x);
+        animator.SetFloat("inputY", userInput.y);
     }
 }
