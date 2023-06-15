@@ -7,16 +7,13 @@ using UnityEngine.Animations.Rigging;
 public class CharacterAiming : MonoBehaviour
 {
     public float turnSpeed = 15f;
-    public float aimDuration = 0.3f;
     public Rig aimLayer;
 
-    private Camera mainCamera;
-    private RaycastWeapon raycastWeapon;
+    private Camera mainCamera;    
 
     private void Awake()
     {
-        mainCamera = Camera.main;
-        raycastWeapon = GetComponentInChildren<RaycastWeapon>();
+        mainCamera = Camera.main;        
     }
 
     private void Start()
@@ -29,25 +26,8 @@ public class CharacterAiming : MonoBehaviour
     {
         if (aimLayer)
         {
-            if (Input.GetButton("Fire2"))
-            {
-                aimLayer.weight += Time.deltaTime / aimDuration;
-            }
-            else
-            {
-                aimLayer.weight -= Time.deltaTime / aimDuration;
-            }
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            raycastWeapon.StartFiring();
-        }
-
-        if (Input.GetButtonUp("Fire1"))
-        {
-            raycastWeapon.StopFiring();
-        }
+            aimLayer.weight = 1f;
+        }        
     }
 
     private void FixedUpdate()
