@@ -29166,6 +29166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa05821b8fce62a4c8478286809144de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: Laser
   isFiring: 0
   fireRate: 25
   bulletSpeed: 1000

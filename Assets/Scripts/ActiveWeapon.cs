@@ -6,10 +6,11 @@ using UnityEngine.Animations.Rigging;
 public class ActiveWeapon : MonoBehaviour
 {
     public Transform crosshairTarget;
-    public Rig handIK;
     public Transform weaponParent;
+    public Animator rigController;
 
     private RaycastWeapon raycastWeapon;
+    
 
     private void Awake()
     {
@@ -40,10 +41,12 @@ public class ActiveWeapon : MonoBehaviour
             {
                 raycastWeapon.StopFiring();
             }
-        }
-        else
-        {
-            handIK.weight = 0f;
+
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                bool isHolstered = rigController.GetBool("holster_weapon");
+                rigController.SetBool("holster_weapon", !isHolstered);
+            }
         }
     }
 
@@ -58,6 +61,6 @@ public class ActiveWeapon : MonoBehaviour
         raycastWeapon.transform.parent = weaponParent;
         raycastWeapon.transform.localPosition = Vector3.zero;
         raycastWeapon.transform.localRotation = Quaternion.identity;
-        handIK.weight = 1f;
+        rigController.Play("equip_" + raycastWeapon.weaponName);
     }
 }

@@ -13,6 +13,7 @@ public class RaycastWeapon : MonoBehaviour
         public TrailRenderer tracer;
     }
 
+    public string weaponName;
     public bool isFiring = false;
     public int fireRate = 25;
     public float bulletSpeed = 1000f;

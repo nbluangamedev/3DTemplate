@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using UnityEngine.Animations.Rigging;
 
 public class CharacterAiming : MonoBehaviour
 {
     public float turnSpeed = 15f;
-    public Rig aimLayer;
 
     private Camera mainCamera;    
 
@@ -20,14 +18,6 @@ public class CharacterAiming : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    private void Update()
-    {
-        if (aimLayer)
-        {
-            aimLayer.weight = 1f;
-        }        
     }
 
     private void FixedUpdate()
