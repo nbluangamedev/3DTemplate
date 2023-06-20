@@ -13,6 +13,8 @@ public class RaycastWeapon : MonoBehaviour
         public TrailRenderer tracer;
     }
 
+    public ActiveWeapon.WeaponSlot weaponSlot;
+
     public string weaponName;
     public bool isFiring = false;
     public int fireRate = 25;

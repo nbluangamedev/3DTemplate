@@ -5,12 +5,18 @@ using UnityEngine.Animations.Rigging;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    public Transform crosshairTarget;
-    public Transform weaponParent;
-    public Animator rigController;
+    public enum WeaponSlot
+    {
+        Primary = 0,
+        Secondary = 1
+    }
 
-    private RaycastWeapon raycastWeapon;
-    
+    public Animator rigController;
+    public Transform crosshairTarget;
+    public Transform[] weaponSlots;
+
+    private RaycastWeapon[] equippedWeapons = new RaycastWeapon[2];
+    private int activeWeaponIndex;
 
     private void Awake()
     {
@@ -23,6 +29,8 @@ public class ActiveWeapon : MonoBehaviour
 
     void Update()
     {
+        var raycastWeapon = GetWeapon(activeWeaponIndex);
+
         if (raycastWeapon)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -42,25 +50,97 @@ public class ActiveWeapon : MonoBehaviour
                 raycastWeapon.StopFiring();
             }
 
-            if(Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                bool isHolstered = rigController.GetBool("holster_weapon");
-                rigController.SetBool("holster_weapon", !isHolstered);
-            }
+                ToggleActiveWeapon();
+            }            
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetActiveWeapon(WeaponSlot.Primary);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetActiveWeapon(WeaponSlot.Secondary);
         }
     }
 
     public void Equip(RaycastWeapon newWeapon)
     {
+        int weaponSlotIndex = (int)newWeapon.weaponSlot;
+        var raycastWeapon = GetWeapon(weaponSlotIndex);
         if (raycastWeapon)
         {
             Destroy(raycastWeapon.gameObject);
         }
         raycastWeapon = newWeapon;
         raycastWeapon.raycastDestination = crosshairTarget;
-        raycastWeapon.transform.parent = weaponParent;
-        raycastWeapon.transform.localPosition = Vector3.zero;
-        raycastWeapon.transform.localRotation = Quaternion.identity;
-        rigController.Play("equip_" + raycastWeapon.weaponName);
+        raycastWeapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
+        SetActiveWeapon(newWeapon.weaponSlot);
+    }
+
+    private void SetActiveWeapon(WeaponSlot weaponSlot)
+    {
+        int holsterIndex = activeWeaponIndex;
+        int activateIndex = (int)weaponSlot;
+        StartCoroutine(SwitchWeapon(holsterIndex, activateIndex));
+    }
+
+    private void ToggleActiveWeapon()
+    {
+        bool isHolstered = rigController.GetBool("holster_weapon");
+        if(isHolstered)
+        {
+            StartCoroutine(ActivateWeapon(activeWeaponIndex));
+        }
+        else
+        {
+            StartCoroutine(HolsterWeapon(activeWeaponIndex));
+        }
+    }
+
+    private RaycastWeapon GetWeapon(int index)
+    {
+        if (index < 0 || index >= equippedWeapons.Length)
+        {
+            return null;
+        }
+        return equippedWeapons[index];
+    }
+
+    private IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
+    {
+        yield return StartCoroutine(HolsterWeapon(holsterIndex));
+        yield return StartCoroutine(ActivateWeapon(activateIndex));        
+        activeWeaponIndex = activateIndex;
+    }
+
+    private IEnumerator HolsterWeapon(int index)
+    {
+        var weapon = GetWeapon(index);
+        if (weapon)
+        {
+            rigController.SetBool("holster_weapon", true);
+            do
+            {
+                yield return new WaitForEndOfFrame();
+            } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        }
+    }
+
+    private IEnumerator ActivateWeapon(int index)
+    {        
+        var weapon = GetWeapon(index);
+        if (weapon)
+        {
+            rigController.SetBool("holster_weapon", false);
+            rigController.Play("equip_" + weapon.weaponName);
+            do
+            {
+                yield return new WaitForEndOfFrame();
+            } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+        }
     }
 }
