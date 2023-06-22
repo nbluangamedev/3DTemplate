@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,9 +15,11 @@ public class ActiveWeapon : MonoBehaviour
     public Animator rigController;
     public Transform crosshairTarget;
     public Transform[] weaponSlots;
+    public CinemachineFreeLook playerCamera;
 
     private RaycastWeapon[] equippedWeapons = new RaycastWeapon[2];
     private int activeWeaponIndex;
+    private bool isHolstered = false;
 
     private void Awake()
     {
@@ -31,7 +34,7 @@ public class ActiveWeapon : MonoBehaviour
     {
         var raycastWeapon = GetWeapon(activeWeaponIndex);
 
-        if (raycastWeapon)
+        if (raycastWeapon && !isHolstered)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -48,12 +51,12 @@ public class ActiveWeapon : MonoBehaviour
             if (Input.GetButtonUp("Fire1"))
             {
                 raycastWeapon.StopFiring();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                ToggleActiveWeapon();
             }            
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ToggleActiveWeapon();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -77,7 +80,9 @@ public class ActiveWeapon : MonoBehaviour
         }
         raycastWeapon = newWeapon;
         raycastWeapon.raycastDestination = crosshairTarget;
+        raycastWeapon.weaponRecoil.playerCamera = playerCamera;
         raycastWeapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
+        equippedWeapons[weaponSlotIndex] = raycastWeapon;
         SetActiveWeapon(newWeapon.weaponSlot);
     }
 
@@ -85,13 +90,19 @@ public class ActiveWeapon : MonoBehaviour
     {
         int holsterIndex = activeWeaponIndex;
         int activateIndex = (int)weaponSlot;
+
+        if (holsterIndex == activateIndex)
+        {
+            holsterIndex = -1;
+        }
+
         StartCoroutine(SwitchWeapon(holsterIndex, activateIndex));
     }
 
     private void ToggleActiveWeapon()
     {
         bool isHolstered = rigController.GetBool("holster_weapon");
-        if(isHolstered)
+        if (isHolstered)
         {
             StartCoroutine(ActivateWeapon(activeWeaponIndex));
         }
@@ -113,16 +124,18 @@ public class ActiveWeapon : MonoBehaviour
     private IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
     {
         yield return StartCoroutine(HolsterWeapon(holsterIndex));
-        yield return StartCoroutine(ActivateWeapon(activateIndex));        
+        yield return StartCoroutine(ActivateWeapon(activateIndex));
         activeWeaponIndex = activateIndex;
     }
 
     private IEnumerator HolsterWeapon(int index)
     {
+        isHolstered = true;
         var weapon = GetWeapon(index);
         if (weapon)
         {
             rigController.SetBool("holster_weapon", true);
+            yield return new WaitForSeconds(0.1f);
             do
             {
                 yield return new WaitForEndOfFrame();
@@ -131,7 +144,7 @@ public class ActiveWeapon : MonoBehaviour
     }
 
     private IEnumerator ActivateWeapon(int index)
-    {        
+    {
         var weapon = GetWeapon(index);
         if (weapon)
         {
@@ -141,6 +154,7 @@ public class ActiveWeapon : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
+            isHolstered = false;
         }
     }
 }

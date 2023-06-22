@@ -28878,6 +28878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8844649527030263127}
   - component: {fileID: 8844649527030263128}
+  - component: {fileID: -3324566526151732310}
   m_Layer: 0
   m_Name: WeaponPistol
   m_TagString: Untagged
@@ -28916,6 +28917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSlot: 1
+  forceBullet: 0.5
   weaponName: Pistol
   isFiring: 0
   fireRate: 1
@@ -28928,6 +28930,22 @@ MonoBehaviour:
   raycastOrigin: {fileID: 8844649527365467901}
   raycastDestination: {fileID: 0}
   tracerEffect: {fileID: 1623134890838833238, guid: a7ec34b0230938d46a5181b85893dbfd, type: 3}
+  weaponRecoil: {fileID: 0}
+--- !u!114 &-3324566526151732310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8844649527030263126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f85a31d8e089f744857e979bc9fee23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  verticalRecoil: 0.02
+  duration: 1
 --- !u!1 &8844649527365467900
 GameObject:
   m_ObjectHideFlags: 0

@@ -29129,6 +29129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8844649527030263127}
   - component: {fileID: 8844649527030263128}
+  - component: {fileID: 5065463127613160749}
+  - component: {fileID: -1339351838630022360}
   m_Layer: 0
   m_Name: WeaponLaser
   m_TagString: Untagged
@@ -29166,6 +29168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa05821b8fce62a4c8478286809144de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlot: 0
+  forceBullet: 1
   weaponName: Laser
   isFiring: 0
   fireRate: 25
@@ -29178,6 +29182,88 @@ MonoBehaviour:
   raycastOrigin: {fileID: 8844649527365467901}
   raycastDestination: {fileID: 0}
   tracerEffect: {fileID: 1623134890838833238, guid: a7ec34b0230938d46a5181b85893dbfd, type: 3}
+  weaponRecoil: {fileID: 0}
+--- !u!114 &5065463127613160749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8844649527030263126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f85a31d8e089f744857e979bc9fee23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  cameraShake: {fileID: 0}
+  recoilPattern:
+  - {x: 10, y: 10}
+  - {x: 7, y: 8}
+  - {x: 8, y: 6}
+  - {x: 9, y: 4}
+  - {x: 5, y: 2}
+  - {x: 6, y: 7}
+  - {x: -5, y: 5}
+  - {x: -6, y: 2}
+  - {x: -8, y: 6}
+  - {x: -9, y: 2}
+  - {x: -5, y: 4}
+  - {x: -7, y: 10}
+  duration: 0.1
+--- !u!114 &-1339351838630022360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8844649527030263126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 2
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.2
+    m_ImpulseType: 3
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 11400000, guid: cab38dac8fd2f3c458392e3386255c19, type: 2}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &8844649527365467900
 GameObject:
   m_ObjectHideFlags: 0
