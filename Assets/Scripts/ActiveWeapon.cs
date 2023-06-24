@@ -87,6 +87,11 @@ public class ActiveWeapon : MonoBehaviour
         SetActiveWeapon(newWeapon.weaponSlot);
     }
 
+    public RaycastWeapon GetActiveWeapon()
+    {
+        return GetWeapon(activeWeaponIndex);
+    }
+
     private void SetActiveWeapon(WeaponSlot weaponSlot)
     {
         int holsterIndex = activeWeaponIndex;

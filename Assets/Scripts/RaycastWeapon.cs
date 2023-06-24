@@ -27,6 +27,7 @@ public class RaycastWeapon : MonoBehaviour
     public Transform raycastDestination;
     public TrailRenderer tracerEffect;
     public WeaponRecoil weaponRecoil;
+    public GameObject magazine;
 
     private Ray ray;
     private RaycastHit hitInfo;
