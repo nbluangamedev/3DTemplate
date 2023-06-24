@@ -44,6 +44,7 @@ public class RaycastWeapon : MonoBehaviour
         isFiring = true;
         accumulatedTime = 0f;
         FireBullet();
+        weaponRecoil.Reset();
     }
 
     public void UpdateFiring(float deltaTime)
@@ -91,7 +92,7 @@ public class RaycastWeapon : MonoBehaviour
         var bullet = CreateBullet(raycastOrigin.position, velocity);
         bullets.Add(bullet);
 
-        weaponRecoil.GenerateRecoil();
+        weaponRecoil.GenerateRecoil(weaponName);
     }    
 
     private Vector3 GetPosition(Bullet bullet)
