@@ -29185,6 +29185,8 @@ MonoBehaviour:
   tracerEffect: {fileID: 1623134890838833238, guid: a7ec34b0230938d46a5181b85893dbfd, type: 3}
   weaponRecoil: {fileID: 0}
   magazine: {fileID: 5309396015187444917}
+  ammoCount: 30
+  totalAmmo: 30
 --- !u!114 &5065463127613160749
 MonoBehaviour:
   m_ObjectHideFlags: 0

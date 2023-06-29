@@ -85,6 +85,11 @@ public class ActiveWeapon : MonoBehaviour
         raycastWeapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         equippedWeapons[weaponSlotIndex] = raycastWeapon;
         SetActiveWeapon(newWeapon.weaponSlot);
+
+        if (ListenerManager.HasInstance)
+        {
+            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, raycastWeapon.ammoCount);
+        }
     }
 
     public RaycastWeapon GetActiveWeapon()

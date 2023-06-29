@@ -29,6 +29,9 @@ public class RaycastWeapon : MonoBehaviour
     public WeaponRecoil weaponRecoil;
     public GameObject magazine;
 
+    public int ammoCount;
+    public int totalAmmo;
+
     private Ray ray;
     private RaycastHit hitInfo;
     private float accumulatedTime;
@@ -84,6 +87,17 @@ public class RaycastWeapon : MonoBehaviour
 
     private void FireBullet()
     {
+        if (ammoCount <= 0)
+        {
+            return;
+        }
+        ammoCount--;
+
+        if (ListenerManager.HasInstance)
+        {
+            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, ammoCount);
+        }
+
         foreach (var item in muzzleFlash)
         {
             item.Emit(1);

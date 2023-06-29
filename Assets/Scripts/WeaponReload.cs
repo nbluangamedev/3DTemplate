@@ -20,10 +20,15 @@ public class WeaponReload : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
+        if (weapon)
         {
-            rigController.SetTrigger("reload_weapon");
+            if (Input.GetKeyDown(KeyCode.R) || weapon.ammoCount <= 0)
+            {
+                rigController.SetTrigger("reload_weapon");
+            }
         }
+
     }
 
     private void OnAnimationEvent(string eventName)
@@ -71,5 +76,12 @@ public class WeaponReload : MonoBehaviour
         RaycastWeapon weapon = activeWeapon.GetActiveWeapon();
         weapon.magazine.SetActive(true);
         Destroy(magazineHand);
+        weapon.ammoCount = weapon.totalAmmo;
+        rigController.ResetTrigger("reload_weapon");
+
+        if (ListenerManager.HasInstance)
+        {
+            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, weapon.ammoCount);
+        }
     }
 }
