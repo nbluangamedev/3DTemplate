@@ -48,7 +48,7 @@ public class RaycastWeapon : MonoBehaviour
         isFiring = true;
         accumulatedTime = 0f;
         FireBullet();
-        weaponRecoil.Reset();
+        weaponRecoil.Reset();        
     }
 
     public void UpdateFiring(float deltaTime)
