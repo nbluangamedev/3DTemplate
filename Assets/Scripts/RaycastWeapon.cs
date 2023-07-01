@@ -17,7 +17,7 @@ public class RaycastWeapon : MonoBehaviour
 
     public float forceBullet = 2f;
     public string weaponName;
-    public bool isFiring = false;
+    public bool isFiring;
     public int fireRate = 25;
     public float bulletSpeed = 1000f;
     public float bulletDrop = 0f;
