@@ -17,10 +17,12 @@ public class CharacterLocomotion : MonoBehaviour
     private CharacterController characterController;
     private ActiveWeapon activeWeapon;
     private WeaponReload reloadWeapon;
+    private CharacterAiming characterAiming;
     private Vector2 userInput;
     private Vector3 rootMotion;
     private Vector3 velocity;
     private bool isJumping;
+
     private int isSprintingParameter = Animator.StringToHash("isSprinting");
     
     
@@ -31,6 +33,7 @@ public class CharacterLocomotion : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         activeWeapon = GetComponent<ActiveWeapon>();
         reloadWeapon = GetComponent<WeaponReload>();
+        characterAiming = GetComponent<CharacterAiming>();
     }
 
     private void Update()
@@ -67,7 +70,8 @@ public class CharacterLocomotion : MonoBehaviour
         bool isFiring = activeWeapon.IsFiring();
         bool isReloading = reloadWeapon.isReloading;
         bool isChangingWeapon = activeWeapon.isChangingWeapon;
-        return isSprinting && !isFiring && !isReloading && !isChangingWeapon;
+        bool isAiming = characterAiming.isAiming;
+        return isSprinting && !isFiring && !isReloading && !isChangingWeapon && !isAiming;
     }
 
     void UpdateIsSprinting()

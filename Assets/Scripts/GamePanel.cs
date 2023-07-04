@@ -7,7 +7,7 @@ public class GamePanel : BaseScreen
 {
     [SerializeField] private TextMeshProUGUI ammoText;
 
-    private void OnEnable()
+    private void Start()
     {
         if (ListenerManager.HasInstance)
         {
@@ -15,7 +15,7 @@ public class GamePanel : BaseScreen
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         if (ListenerManager.HasInstance)
         {

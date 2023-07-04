@@ -15,7 +15,7 @@ public class ActiveWeapon : MonoBehaviour
     public Animator rigController;
     public Transform crosshairTarget;
     public Transform[] weaponSlots;
-    public CinemachineFreeLook playerCamera;
+    public CharacterAiming characterAiming;
     public bool isChangingWeapon;
 
     private RaycastWeapon[] equippedWeapons = new RaycastWeapon[2];
@@ -34,8 +34,8 @@ public class ActiveWeapon : MonoBehaviour
     void Update()
     {
         var raycastWeapon = GetWeapon(activeWeaponIndex);
-
-        if (raycastWeapon && !isHolstered)
+        bool isNotSprinting = rigController.GetCurrentAnimatorStateInfo(2).shortNameHash == Animator.StringToHash("notSprinting");
+        if (raycastWeapon && !isHolstered && isNotSprinting)
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -74,7 +74,7 @@ public class ActiveWeapon : MonoBehaviour
     public bool IsFiring()
     {
         RaycastWeapon currentWeapon = GetActiveWeapon();
-        if (currentWeapon)
+        if (!currentWeapon)
         {
             return false;
         }
@@ -94,7 +94,7 @@ public class ActiveWeapon : MonoBehaviour
         }
         raycastWeapon = newWeapon;
         raycastWeapon.raycastDestination = crosshairTarget;
-        raycastWeapon.weaponRecoil.playerCamera = playerCamera;
+        raycastWeapon.weaponRecoil.characterAiming = characterAiming;
         raycastWeapon.weaponRecoil.rigController = rigController;
         raycastWeapon.transform.SetParent(weaponSlots[weaponSlotIndex], false);
         equippedWeapons[weaponSlotIndex] = raycastWeapon;
@@ -148,6 +148,7 @@ public class ActiveWeapon : MonoBehaviour
 
     private IEnumerator SwitchWeapon(int holsterIndex, int activateIndex)
     {
+        rigController.SetInteger("weapon_Index", activateIndex);
         yield return StartCoroutine(HolsterWeapon(holsterIndex));
         yield return StartCoroutine(ActivateWeapon(activateIndex));
         activeWeaponIndex = activateIndex;

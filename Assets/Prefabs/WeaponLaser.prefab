@@ -29028,7 +29028,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8844257783372730215}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.114585966, z: 0.023063663}
+  m_LocalPosition: {x: -0, y: 0.115, z: 0.026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29175,7 +29175,7 @@ MonoBehaviour:
   isFiring: 0
   fireRate: 25
   bulletSpeed: 1000
-  bulletDrop: 20
+  bulletDrop: 0
   muzzleFlash:
   - {fileID: 8682593686366468576}
   - {fileID: 8682875358138775878}
@@ -29199,7 +29199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f85a31d8e089f744857e979bc9fee23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  characterAiming: {fileID: 0}
   cameraShake: {fileID: 0}
   rigController: {fileID: 0}
   recoilPattern:

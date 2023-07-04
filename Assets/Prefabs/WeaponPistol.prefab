@@ -29048,6 +29048,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Wep_Pistol_01
       objectReference: {fileID: 0}
+    - target: {fileID: 4034906914383706, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.124
+      objectReference: {fileID: 0}
     - target: {fileID: 4276584366140610, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
       propertyPath: m_RootOrder
       value: 1
