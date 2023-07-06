@@ -31,6 +31,7 @@ public class RaycastWeapon : MonoBehaviour
 
     public int ammoCount;
     public int totalAmmo;
+    public float damage = 10f;
 
     private Ray ray;
     private RaycastHit hitInfo;
@@ -137,6 +138,12 @@ public class RaycastWeapon : MonoBehaviour
             if (rb)
             {
                 rb.AddForceAtPosition(ray.direction * forceBullet, hitInfo.point, ForceMode.Impulse);
+            }
+
+            var hitBox = hitInfo.collider.GetComponent<HitBox>();
+            if (hitBox)
+            {
+                hitBox.OnHit(this, ray.direction);
             }
         }
         
