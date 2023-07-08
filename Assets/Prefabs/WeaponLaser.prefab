@@ -29173,7 +29173,7 @@ MonoBehaviour:
   forceBullet: 1
   weaponName: Laser
   isFiring: 0
-  fireRate: 25
+  fireRate: 5
   bulletSpeed: 1000
   bulletDrop: 0
   muzzleFlash:
@@ -29187,6 +29187,7 @@ MonoBehaviour:
   magazine: {fileID: 5309396015187444917}
   ammoCount: 30
   totalAmmo: 30
+  damage: 10
 --- !u!114 &5065463127613160749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29205,17 +29206,23 @@ MonoBehaviour:
   recoilPattern:
   - {x: 10, y: 10}
   - {x: 7, y: 8}
-  - {x: 8, y: 6}
-  - {x: 9, y: 4}
-  - {x: 5, y: 2}
-  - {x: 6, y: 7}
+  - {x: 5, y: 6}
+  - {x: 3, y: 4}
+  - {x: 1, y: 2}
+  - {x: -3, y: 7}
   - {x: -5, y: 5}
-  - {x: -6, y: 2}
-  - {x: -8, y: 6}
-  - {x: -9, y: 2}
+  - {x: -7, y: 2}
+  - {x: -10, y: 6}
+  - {x: -7, y: 2}
   - {x: -5, y: 4}
-  - {x: -7, y: 10}
+  - {x: -3, y: 10}
+  - {x: 1, y: 0}
+  - {x: 3, y: 0}
+  - {x: 5, y: 0}
+  - {x: 7, y: 0}
+  - {x: 10, y: 0}
   duration: 0.1
+  recoilModifier: 1
 --- !u!114 &-1339351838630022360
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -47,25 +47,63 @@ public class RaycastWeapon : MonoBehaviour
     public void StartFiring()
     {
         isFiring = true;
-        accumulatedTime = 0f;
-        FireBullet();
+        if(accumulatedTime > 0f)
+        {
+            accumulatedTime = 0f;
+        }        
         weaponRecoil.Reset();        
     }
+    public void StopFiring()
+    {
+        isFiring = false;
+    }
 
-    public void UpdateFiring(float deltaTime)
+    public void UpdateWeapon(float deltaTime, Vector3 target)
+    {
+        if (isFiring)
+        {
+            UpdateFiring(deltaTime, target);
+        }
+
+        accumulatedTime += deltaTime;
+
+        UpdateBullets(deltaTime);
+    }
+
+    private void UpdateFiring(float deltaTime, Vector3 target)
     {
         accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
         while (accumulatedTime >= 0f)
         {
-            FireBullet();
+            FireBullet(target);
             accumulatedTime -= fireInterval;
         }
     }
 
-    public void StopFiring()
+    private void FireBullet(Vector3 target)
     {
-        isFiring = false;
+        if (ammoCount <= 0)
+        {
+            return;
+        }
+        ammoCount--;
+
+        if (ListenerManager.HasInstance)
+        {
+            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, ammoCount);
+        }
+
+        foreach (var item in muzzleFlash)
+        {
+            item.Emit(1);
+        }
+
+        Vector3 velocity = (target - raycastOrigin.position).normalized * bulletSpeed;
+        var bullet = CreateBullet(raycastOrigin.position, velocity);
+        bullets.Add(bullet);
+
+        weaponRecoil.GenerateRecoil(weaponName);
     }
 
     public void UpdateBullets(float deltaTime)
@@ -85,32 +123,7 @@ public class RaycastWeapon : MonoBehaviour
     {
         bullets.RemoveAll(bullet => bullet.time >= maxBulletLifetime);
     }
-
-    private void FireBullet()
-    {
-        if (ammoCount <= 0)
-        {
-            return;
-        }
-        ammoCount--;
-
-        if (ListenerManager.HasInstance)
-        {
-            ListenerManager.Instance.BroadCast(ListenType.UPDATE_AMMO, ammoCount);
-        }
-
-        foreach (var item in muzzleFlash)
-        {
-            item.Emit(1);
-        }
-
-        Vector3 velocity = (raycastDestination.position - raycastOrigin.position).normalized * bulletSpeed;
-        var bullet = CreateBullet(raycastOrigin.position, velocity);
-        bullets.Add(bullet);
-
-        weaponRecoil.GenerateRecoil(weaponName);
-    }    
-
+    
     private Vector3 GetPosition(Bullet bullet)
     {
         //p = p0 + (v*t) + (1/2*g*t*t)

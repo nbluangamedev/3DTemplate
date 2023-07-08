@@ -11,7 +11,7 @@ public class WeaponRecoil : MonoBehaviour
 
     public Vector2[] recoilPattern;
     public float duration;
-    public float recoilModifier = 1.0f;
+    public float recoilModifier = 1f;
 
     private float time;
     private int index;

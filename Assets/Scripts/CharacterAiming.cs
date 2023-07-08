@@ -38,7 +38,7 @@ public class CharacterAiming : MonoBehaviour
         var weapon = activeWeapon.GetActiveWeapon();
         if (weapon)
         {
-            weapon.weaponRecoil.recoilModifier = isAiming ? 0.3f : 1.0f;
+            weapon.weaponRecoil.recoilModifier = isAiming ? 0.3f : 1f;
         }
     }
 

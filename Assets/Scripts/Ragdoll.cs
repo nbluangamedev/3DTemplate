@@ -31,4 +31,9 @@ public class Ragdoll : MonoBehaviour
         }
         animator.enabled = false;
     }
+
+    public void ApplyForce(Vector3 force, Rigidbody rigibody)
+    {
+        rigibody.AddForce(force, ForceMode.VelocityChange);
+    }
 }

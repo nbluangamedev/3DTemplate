@@ -16,14 +16,16 @@ public class ActiveWeapon : MonoBehaviour
     public Transform crosshairTarget;
     public Transform[] weaponSlots;
     public CharacterAiming characterAiming;
+    public WeaponReload weaponReload;
     public bool isChangingWeapon;
 
     private RaycastWeapon[] equippedWeapons = new RaycastWeapon[2];
     private int activeWeaponIndex;
     private bool isHolstered = false;
 
-    private void Awake()
+    private void Start()
     {
+        weaponReload = GetComponent<WeaponReload>();
         RaycastWeapon existWeapon = GetComponentInChildren<RaycastWeapon>();
         if (existWeapon)
         {
@@ -35,40 +37,36 @@ public class ActiveWeapon : MonoBehaviour
     {
         var raycastWeapon = GetWeapon(activeWeaponIndex);
         bool isNotSprinting = rigController.GetCurrentAnimatorStateInfo(2).shortNameHash == Animator.StringToHash("notSprinting");
-        if (raycastWeapon && !isHolstered && isNotSprinting)
+        bool canFire = !isHolstered && isNotSprinting && !weaponReload.isReloading;
+        if (raycastWeapon)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && canFire && !raycastWeapon.isFiring)
             {
                 raycastWeapon.StartFiring();
             }
 
-            if (raycastWeapon.isFiring)
-            {
-                raycastWeapon.UpdateFiring(Time.deltaTime);
-            }
-
-            raycastWeapon.UpdateBullets(Time.deltaTime);
-
-            if (Input.GetButtonUp("Fire1"))
+            raycastWeapon.UpdateWeapon(Time.deltaTime, crosshairTarget.position);
+                        
+            if (Input.GetButtonUp("Fire1") || !canFire)
             {
                 raycastWeapon.StopFiring();
-            }            
-        }
+            }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ToggleActiveWeapon();
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SetActiveWeapon(WeaponSlot.Primary);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetActiveWeapon(WeaponSlot.Primary);
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SetActiveWeapon(WeaponSlot.Secondary);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetActiveWeapon(WeaponSlot.Secondary);
-        }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                ToggleActiveWeapon();
+            }
+        }        
     }
 
     public bool IsFiring()
