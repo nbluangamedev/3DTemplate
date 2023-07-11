@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public float maxHealth;
-    public float blinkDuration = 0.1f;
-    public float dieForce;
-
+    private float maxHealth;
+    private float blinkDuration;
     private float currentHealth;
     private Ragdoll ragdoll;
     private UIHealthBar healthBar;
     private SkinnedMeshRenderer skinnedMeshRenderer;
+    private AIAgent aiAgent;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (DataManager.HasInstance)
+        {
+            maxHealth = DataManager.Instance.globalConfig.maxHealth;
+            blinkDuration = DataManager.Instance.globalConfig.blinkDuration;
+        }
+
         currentHealth = maxHealth;
         ragdoll = GetComponent<Ragdoll>();
         healthBar = GetComponentInChildren<UIHealthBar>();
+        aiAgent = GetComponent<AIAgent>();
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         Setup();
     }
@@ -52,11 +58,11 @@ public class Health : MonoBehaviour
 
     private void Die(Vector3 direction, Rigidbody rigidbody)
     {
-        ragdoll.ActiveRagdoll();
-        direction.y = 1f;
-        ragdoll.ApplyForce(direction * dieForce, rigidbody);
-        healthBar.Deactive();
-        Destroy(this.gameObject, 3f);
+        AIDeathState deathState = aiAgent.stateMachine.GetState(AIStateID.Death) as AIDeathState;
+        deathState.direction = direction;
+        deathState.rigidbody = rigidbody;
+
+        aiAgent.stateMachine.ChangeState(AIStateID.Death);
     }
 
     IEnumerator EnemyFlash()
@@ -65,5 +71,10 @@ public class Health : MonoBehaviour
         yield return new WaitForSeconds(blinkDuration);
         skinnedMeshRenderer.material.DisableKeyword("_EMISSION");
         StopCoroutine(nameof(EnemyFlash));
+    }
+
+    public void DestroyWhenDeath()
+    {
+        Destroy(this.gameObject, 3f);
     }
 }

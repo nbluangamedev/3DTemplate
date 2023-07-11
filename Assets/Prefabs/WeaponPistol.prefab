@@ -28933,8 +28933,9 @@ MonoBehaviour:
   tracerEffect: {fileID: 1623134890838833238, guid: a7ec34b0230938d46a5181b85893dbfd, type: 3}
   weaponRecoil: {fileID: 0}
   magazine: {fileID: 0}
-  ammoCount: 15
-  totalAmmo: 15
+  ammoCount: 100
+  totalAmmo: 100
+  damage: 10
 --- !u!114 &-3324566526151732310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28947,12 +28948,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f85a31d8e089f744857e979bc9fee23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
+  characterAiming: {fileID: 0}
   cameraShake: {fileID: 0}
   rigController: {fileID: 0}
   recoilPattern:
   - {x: 0, y: 0}
   duration: 1
+  recoilModifier: 1
 --- !u!114 &-7618141291321610992
 MonoBehaviour:
   m_ObjectHideFlags: 0

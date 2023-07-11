@@ -3,11 +3,9 @@ using UnityEngine.AI;
 
 public class AIChasePlayerState : AIState
 {
-    public Transform playerTransform;
-    public float maxTime = 1.0f;
-    public float maxDistance = 1.0f;
-
     private float timer = 0f;
+    private float maxDistance;
+    private float maxTime;
 
     public AIStateID GetID()
     {
@@ -16,9 +14,12 @@ public class AIChasePlayerState : AIState
 
     public void Enter(AIAgent agent)
     {
-        if (playerTransform == null)
+        
+
+        if (DataManager.HasInstance)
         {
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            maxDistance = DataManager.Instance.globalConfig.maxDistance;
+            maxTime = DataManager.Instance.globalConfig.maxTime;
         }
     }
 
@@ -33,19 +34,19 @@ public class AIChasePlayerState : AIState
 
         if (!agent.navMeshAgent.hasPath)
         {
-            agent.navMeshAgent.destination = playerTransform.position;
+            agent.navMeshAgent.destination = agent.playerTransform.position;
         }
 
         if (timer < 0f)
         {
-            Vector3 direction = playerTransform.position - agent.navMeshAgent.destination;
+            Vector3 direction = agent.playerTransform.position - agent.navMeshAgent.destination;
             direction.y = 0;
 
             if (direction.sqrMagnitude > maxDistance * maxDistance)
             {
                 if (agent.navMeshAgent.pathStatus != NavMeshPathStatus.PathPartial)
                 {
-                    agent.navMeshAgent.destination = playerTransform.position;
+                    agent.navMeshAgent.destination = agent.playerTransform.position;
                 }
             }
             timer = maxTime;
@@ -54,5 +55,6 @@ public class AIChasePlayerState : AIState
 
     public void Exit(AIAgent agent)
     {
+
     }
 }
