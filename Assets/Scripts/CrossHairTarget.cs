@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrosshairTarget : MonoBehaviour
+public class CrossHairTarget : MonoBehaviour
 {
     public Camera mainCamera;
 
