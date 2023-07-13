@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973d8bc1fd80af945b5e12e826692edf, type: 3}
   m_Name: Global Config
   m_EditorClassIdentifier: 
-  maxTime: 1
-  maxDistance: 1
+  maxTime: 0.1
+  maxDistance: 2
+  maxHealth: 100
+  blinkDuration: 0.1
+  dieForce: 10
+  maxSight: 5
+  amountInPool: 30

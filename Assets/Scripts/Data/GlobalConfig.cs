@@ -12,4 +12,5 @@ public class GlobalConfig : ScriptableObject
     public float blinkDuration = 0.1f;
     public float dieForce = 10f;
     public float maxSight = 5f;
+    public int amountInPool = 30;
 }

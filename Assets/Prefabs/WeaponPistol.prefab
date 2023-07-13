@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 114880926157817121}
   - component: {fileID: 240252463288292999}
   - component: {fileID: 239679812673679385}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4848,7 +4848,7 @@ GameObject:
   - component: {fileID: 110145030174053481}
   - component: {fileID: 240851452978104131}
   - component: {fileID: 239584011132141867}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9739,7 +9739,7 @@ GameObject:
   - component: {fileID: 110180388045848181}
   - component: {fileID: 240514200006385407}
   - component: {fileID: 239675592587916145}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14414,7 +14414,7 @@ GameObject:
   - component: {fileID: 109961689539131977}
   - component: {fileID: 240882914743676189}
   - component: {fileID: 240024135247432771}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19081,7 +19081,7 @@ GameObject:
   - component: {fileID: 8841065993167997102}
   - component: {fileID: 8682593686366468576}
   - component: {fileID: 8681515567120866162}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleFlash01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23963,7 +23963,7 @@ GameObject:
   - component: {fileID: 8840577559182532354}
   - component: {fileID: 8682875358138775878}
   - component: {fileID: 8681445381851060714}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FlashHeadon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28843,7 +28843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8844649526050758156}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28880,7 +28880,7 @@ GameObject:
   - component: {fileID: 8844649527030263128}
   - component: {fileID: -3324566526151732310}
   - component: {fileID: -7618141291321610992}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponPistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29017,7 +29017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8844649527365467901}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RaycastOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29046,9 +29046,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8844649527030263127}
     m_Modifications:
+    - target: {fileID: 1264200380836966, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459174726613952, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1700825503440746, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Pistol_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700825503440746, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4034906914383706, guid: 8a5973e326885694c8eb4a575b705591, type: 3}
       propertyPath: m_LocalPosition.z
